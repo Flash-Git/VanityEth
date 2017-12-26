@@ -17,7 +17,8 @@
     ],
     "author": "kvhnuke",
     "contributors": [
-        { "name" : "Boris K", "url" : "https://github.com/bokub"}
+        { "name" : "Boris K", "url" : "https://github.com/bokub"},
+        { "name" : "Flash", "url" : "https://github.com/Flash-Git"}
     ],
     "license": "MIT",
     "bugs": {

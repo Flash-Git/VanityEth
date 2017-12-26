@@ -39,7 +39,7 @@ if (cluster.isMaster) {
     }
     if (!VanityEth.isValidHex(args.input)) {
         console.error(args.input + ' is not valid hexadecimal');
-        process.exit(1);
+        //process.exit(1);
     }
     if (args.log) {
         var fs = require('fs');
