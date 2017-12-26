@@ -14,7 +14,7 @@ var isValidHex = function(hex) {
     var re = /^[0-9A-F]+$/g;
     return re.test(hex);
 }
-ar isValidVanityWallet = function(wallet, input, isChecksum, isContract) {
+var isValidVanityWallet = function(wallet, input, isChecksum, isContract) {
     var _input = JSON.parse(input);
     var _add = wallet.address;
     if (isContract) {
