@@ -3,8 +3,6 @@ var ethUtils = require('ethereumjs-util');
 var ERRORS = {
     invalidHex: "Invalid hex input"
 }
-require('es6-shim');
-
 var getRandomWallet = function() {
     var randbytes = crypto.randomBytes(32);
     var address = '0x' + ethUtils.privateToAddress(randbytes).toString('hex');
@@ -47,7 +45,7 @@ var containsValidVanityWallet = function(wallet, input, isChecksum, isContract) 
         for (i = 0; i < _input.length; i++) {
 
 
-            if(_add.substr(2, _input[i].length).contains(_input[i])){
+            if(_add.substr(2, _input[i].length).includes(_input[i])){
                 return true;
             }
         }
