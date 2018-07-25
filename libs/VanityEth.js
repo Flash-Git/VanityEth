@@ -45,7 +45,7 @@ var containsValidVanityWallet = function(wallet, input, isChecksum, isContract) 
         for (i = 0; i < _input.length; i++) {
 
 
-            if(_add.substr(2, _input[i].length).includes(_input[i])){
+            if(_add.includes(_input[i])){
                 return true;
             }
         }
@@ -53,6 +53,7 @@ var containsValidVanityWallet = function(wallet, input, isChecksum, isContract) 
     }
     return _add.substr(2, _input.toString().length) == _input;//not an array
 }
+//_add = full address     _add.substring()
 
 var getVanityWallet = function(input = '',contains = true ,isChecksum = false, isContract = false) {
     var _wallet = getRandomWallet();
