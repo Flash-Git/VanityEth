@@ -3,6 +3,8 @@ var ethUtils = require('ethereumjs-util');
 var ERRORS = {
     invalidHex: "Invalid hex input"
 }
+require('es6-shim');
+
 var getRandomWallet = function() {
     var randbytes = crypto.randomBytes(32);
     var address = '0x' + ethUtils.privateToAddress(randbytes).toString('hex');
