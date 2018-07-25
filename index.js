@@ -27,6 +27,7 @@ var argv = require('yargs')
     .help('h')
     .alias('h', 'help')
     .epilog('copyright 2017')
+    .contains('contains')
     .argv;
 if (cluster.isMaster) {
     const args = {
@@ -35,8 +36,10 @@ if (cluster.isMaster) {
         numWallets: argv.count ? argv.count : 1,
         isContract: argv.contract ? true : false,
         log: argv.log ? true : false,
+        contains: argv.contains ? true :false,
         logFname: argv.log ? 'VanityEth-log-' + Date.now() + '.txt' : ''
     }
+
     if (!VanityEth.isValidHex(args.input)) {
         console.error(args.input + ' is not valid hexadecimal');
         //process.exit(1);
@@ -51,6 +54,7 @@ if (cluster.isMaster) {
     for (var i = 0; i < numCPUs; i++) {
         const worker_env = {
             input: args.input,
+            isContains: args.contains,
             isChecksum: args.isChecksum,
             isContract: args.isContract
         }
@@ -70,7 +74,7 @@ if (cluster.isMaster) {
 } else {
     const worker_env = process.env;
     while (true) {
-        process.send(VanityEth.getVanityWallet(worker_env.input, worker_env.isChecksum == 'true', worker_env.isContract == 'true'))
+        process.send(VanityEth.getVanityWallet(worker_env.input, worker_env.isContains == 'false', worker_env.isChecksum == 'true', worker_env.isContract == 'true'))
     }
 }
 process.stdin.resume();

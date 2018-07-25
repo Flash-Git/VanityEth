@@ -24,19 +24,47 @@ var isValidVanityWallet = function(wallet, input, isChecksum, isContract) {
     _add = isChecksum ? ethUtils.toChecksumAddress(_add) : _add;
     if(_input.constructor === Array){
         for (i = 0; i < _input.length; i++) {
-            if(_add.substr(2, _input[i].length) == _input[i])
+            if(_add.substr(2, _input[i].length) == _input[i]){
                 return true;
+            }
         }
         return false;
     }
     return _add.substr(2, _input.toString().length) == _input;//not an array
 }
-var getVanityWallet = function(input = '', isChecksum = false, isContract = false) {
+
+var containsValidVanityWallet = function(wallet, input, isChecksum, isContract) {
+    var _input = JSON.parse(input);
+    var _add = wallet.address;
+    if (isContract) {
+        console.log("I killed this");
+        exit(1);
+    }
+    _add = isChecksum ? ethUtils.toChecksumAddress(_add) : _add;
+    if(_input.constructor === Array){
+        for (i = 0; i < _input.length; i++) {
+
+
+            if(_add.substr(2, _input[i].length).contains(_input[i])){
+                return true;
+            }
+        }
+        return false;
+    }
+    return _add.substr(2, _input.toString().length) == _input;//not an array
+}
+
+var getVanityWallet = function(input = '',contains = false ,isChecksum = false, isContract = false) {
     var _wallet = getRandomWallet();
-    while (!isValidVanityWallet(_wallet, input, isChecksum, isContract)) _wallet = getRandomWallet(isChecksum);
+    if(contains){
+        while (!containsValidVanityWallet(_wallet, input, isChecksum, isContract)) _wallet = getRandomWallet(isChecksum);
+    }else{
+        while (!isValidVanityWallet(_wallet, input, isChecksum, isContract)) _wallet = getRandomWallet(isChecksum);
+    }
     if (isChecksum) _wallet.address = ethUtils.toChecksumAddress(_wallet.address);
     return _wallet;
 }
+
 var getDeteministicContractAddress = function(address) {
     return '0x' + ethUtils.sha3(ethUtils.rlp.encode([address, 0])).slice(12).toString('hex');
 }
