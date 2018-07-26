@@ -39,8 +39,7 @@ if (cluster.isMaster) {
     }
 
     var _input = JSON.parse(args.input);
-    console.log("parsed: " + _input);
-    if(_input === Array){
+    if(_input.constructor === Array){
         console.log("is array");
         for (i = 0; i < _input.length; i++) {
             if (!VanityEth.isValidHex(_input[i])) {
