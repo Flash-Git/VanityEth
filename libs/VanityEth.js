@@ -43,8 +43,6 @@ var containsValidVanityWallet = function(wallet, input, isChecksum, isContract) 
     _add = isChecksum ? ethUtils.toChecksumAddress(_add) : _add;
     if(_input.constructor === Array){
         for (i = 0; i < _input.length; i++) {
-
-
             if(_add.includes(_input[i])){
                 return true;
             }
@@ -53,9 +51,8 @@ var containsValidVanityWallet = function(wallet, input, isChecksum, isContract) 
     }
     return _add.substr(2, _input.toString().length) == _input;//not an array
 }
-//_add = full address     _add.substring()
 
-var getVanityWallet = function(input = '',contains = true ,isChecksum = false, isContract = false) {
+var getVanityWallet = function(input = '',contains = false ,isChecksum = false, isContract = false) {
     var _wallet = getRandomWallet();
     if(contains){
         while (!containsValidVanityWallet(_wallet, input, isChecksum, isContract)) _wallet = getRandomWallet(isChecksum);

@@ -38,10 +38,21 @@ if (cluster.isMaster) {
         logFname: argv.log ? 'VanityEth-log-' + Date.now() + '.txt' : ''
     }
 
-    if (!VanityEth.isValidHex(args.input)) {
-        console.error(args.input + ' is not valid hexadecimal');
-        //process.exit(1);
+    var _input = JSON.parse(args.input);
+    if(_input === Array){
+        for (i = 0; i < _input.length; i++) {
+            if (!VanityEth.isValidHex(_input[i])) {
+                console.error(_input[i]+ ' is not valid hexadecimal');
+                process.exit(1);
+            }
+        }
+    }else{
+        if (!VanityEth.isValidHex(args.input)) {
+            console.error(args.input + ' is not valid hexadecimal');
+            process.exit(1);
+        }
     }
+   
     if (args.log) {
         var fs = require('fs');
         console.log('logging into' + args.logFname);
